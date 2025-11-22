@@ -10,6 +10,7 @@ import {
   Legend,
 } from "recharts";
 import TreeTable from "./TreeTable";
+import RegionChannelTable from "./components/RegionChannelTable";
 /***** Helpers *****/
 function formatMoney(n) {
   return "₹" + Number(n || 0).toFixed(2);
@@ -320,21 +321,7 @@ function Page() {
     <div style={{ padding: 12, maxWidth: 1200, margin: "0 auto" }}>
       <h2 style={{ marginTop: 0 }}>Marketing Dashboard</h2>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 420px", gap: 12 }}>
-        {/* <div>
-          <KPIBar data={filtered} />
-          <div style={{ marginTop: 12 }}>
-            <Filters channels={channels} regions={regions} onChange={(o) => setOpts(o)} />
-          </div>
-          <div style={{ marginTop: 12, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div>{filtered.length} rows</div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button style={btnStyle} onClick={() => downloadCSV("export.csv", filtered)} disabled={!filtered.length}>
-                Export CSV
-              </button>
-            </div>
-          </div>
-          <TableView rows={filtered} />
-        </div> */}
+       
         <div>
   <KPIBar data={filtered} />
   <div style={{ marginTop: 12 }}>
@@ -348,19 +335,20 @@ function Page() {
       </button>
     </div>
   </div>
-  <TableView rows={filtered} />
+  {/* <TableView rows={filtered} /> */}
+  <RegionChannelTable data={filtered} />
+
 </div>
 
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <ChartPanel data={filtered} />
           <div style={{ background: "#fff", padding: 12, borderRadius: 8 }}>
-            <h4 style={{ margin: "0 0 8px 0" }}>Tips</h4>
-            {/* <ul style={{ margin: "8px 0 0 18px" }}>
-              <li>For production, use server-side pagination.</li>
-              <li>Use virtualization for extremely long tables.</li>
-              <li>Compress your bundle & enable caching.</li>
-            </ul> */}
+            <h4 style={{ margin: "0 0 8px 0" }}>Developed by</h4>
+            <ul style={{ margin: "8px 0 0 18px" }}>
+              <li>Sadanand kumar</li>
+              <li>sadanandkr9686@gmail.com</li>
+            </ul>
           </div>
         </div>
       </div>
