@@ -52,26 +52,51 @@ function AppProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   // Production/local strategy: load from public folder
+  //   fetch("/marketing_dashboard_data.json")
+  //     .then((res) => {
+  //       if (!res.ok) throw new Error("file not found");
+  //       return res.json();
+  //     })
+  //     .then((json) => {
+  //       setData(Array.isArray(json) ? json : []);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Failed to load dataset", err);
+  //       setError(
+  //         "Dataset could not be loaded. Ensure public/marketing_dashboard_data.json exists and is valid JSON."
+  //       );
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+
   useEffect(() => {
-    setLoading(true);
-    // Production/local strategy: load from public folder
-    fetch("/marketing_dashboard_data.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("file not found");
-        return res.json();
-      })
-      .then((json) => {
-        setData(Array.isArray(json) ? json : []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load dataset", err);
-        setError(
-          "Dataset could not be loaded. Ensure public/marketing_dashboard_data.json exists and is valid JSON."
-        );
-        setLoading(false);
-      });
-  }, []);
+  setLoading(true);
+
+  // Correct path for GitHub Pages + Local Dev
+  const url = process.env.PUBLIC_URL + "/marketing_dashboard_data.json";
+
+  fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error("file not found");
+      return res.json();
+    })
+    .then((json) => {
+      setData(Array.isArray(json) ? json : []);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Failed to load dataset", err);
+      setError(
+        "Dataset could not be loaded. Ensure public/marketing_dashboard_data.json exists and is valid JSON."
+      );
+      setLoading(false);
+    });
+}, []);
 
   return (
     <AppContext.Provider value={{ data, loading, error }}>
